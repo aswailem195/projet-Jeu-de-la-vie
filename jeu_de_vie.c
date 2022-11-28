@@ -4,34 +4,29 @@
 #include "header.h"
 
 int main()
-{
-
-    // Le nombre de colonnes (columns) et de lignes (rows) du jeu
-
+{   // Le nombre de colonnes (columns) et de lignes (rows) du jeu
     unsigned int taille;
+    unsigned int n_point_vivre ;;
 
-    unsigned int n_point_vivre;
 
     // Saisie du nombre de colonnes et de lignes du jeu
     printf("Nombre de colonnes: ");
     scanf("%d", &taille);
 
     char **tab1 = malloc(sizeof(*tab1) * taille);
-    for (int i = 0; i < taille; i++)
-    {
-        tab1[i] = malloc(sizeof(**tab1) * taille);
-    }
-
     char **tab2 = malloc(sizeof(*tab2) * taille);
     for (int i = 0; i < taille; i++)
-        tab2[i] = malloc(sizeof(**tab2) * taille);
+    {
+        tab2[i] = malloc(sizeof(char) * taille);
+        tab1[i] = malloc(sizeof(char) * taille);
+    }
 
-    // initialiser toute la matrice a 0 :
+    // initialiser toute les matrice a 0 :
     for (int i = 0; i < taille; i++)
     {
         for (int j = 0; j < taille; j++)
         {
-            // tab1[i][j] = 0 ;
+            tab1[i][j] = 0;
             tab2[i][j] = 0;
         }
     }
@@ -52,26 +47,10 @@ int main()
         tab1[i][j] = 1;
     }
 
-    nouvelle_vie(tab1, tab2, taille);
-    for (int i = 0; i < taille; i++)
-    {
-        for (int j = 0; j < taille; j++)
-        {
-            printf("%d", tab1[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n---------------------------\n");
-    for (int i = 0; i < taille; i++)
-    {
-        for (int j = 0; j < taille; j++)
-        {
-            printf("%d", tab2[i][j]);
-        }
-        printf("\n");
-    }
-
+    
+    nouvelle_vie(tab1,tab2,taille);
     afichage_sd2(taille, tab1);
+    afichage_sd2(taille, tab2);
 
     return 0;
 }

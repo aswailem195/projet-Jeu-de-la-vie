@@ -46,11 +46,20 @@ void nouvelle_vie(char **tab1, char **tab2, unsigned int taille)
                   {
                         *(*(tab2 + i) + j) = 1;
                   }
-                  if ((tab1[i][j] == 1) && ((cept == 3) || (cept == 2)))
+
+                  if ((tab1[i][j] == 1))
                   {
-                        *(*(tab2 + i) + j) = 1;
+                        if ((cept == 3) || (cept == 2))
+                        {
+                              *(*(tab2 + i) + j) = 1;
+                        }
+                        else
+                        {
+                              *(*(tab2 + i) + j) = 0;
+                        }
                   }
+
+                  // printf("\n");
             }
-            // printf("\n");
       }
 }
