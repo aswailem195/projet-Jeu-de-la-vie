@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
+#include "header.h"
 
-int afichage_sd2(unsigned int taille, char **tab1)
+int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_tour)
 {
   // Les dimensions de la fenetre (zone d'affichage) en pixels
   unsigned int frame_width = 800;  // Largeur
@@ -22,7 +23,6 @@ int afichage_sd2(unsigned int taille, char **tab1)
   printf("\nLancement de l'interface graphique\n");
   SDL_Window *fenetre;
   SDL_Renderer *renderer; // Déclaration du renderer
-
 
   // Initialisation de la SDL
   if (SDL_VideoInit(NULL) < 0)
@@ -58,9 +58,6 @@ int afichage_sd2(unsigned int taille, char **tab1)
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
 
-
-
-
   // Choix de la couleur utilisee pour le tracage
   SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // (RGB 255, 0, 255)
 
@@ -71,30 +68,41 @@ int afichage_sd2(unsigned int taille, char **tab1)
   // w: largeur du rectangle (taille selon l'axe x)
   // h: hauteur du rectangle (taille selon l'axe y))
   SDL_Rect cell;
+  char **t ;
+  for (int i = 0; i < num_tour; i++)
 
-  for (unsigned int col = 0; col < taille; col++)
   {
-    for (unsigned int row = 0; row < taille; row++)
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_RenderClear(renderer);
+  SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // (RGB 255, 0, 255)
+    for (unsigned int col = 0; col < taille; col++)
     {
-
-      // Initialisation du rectangle a la bonne position
-      if (tab1[row][col] == 1)
+      for (unsigned int row = 0; row < taille; row++)
       {
-        cell.x = col * column_width;
-        cell.y = row * row_height;
-        cell.w = column_width;
-        cell.h = row_height;
-        // Dessin du rectangle sur le renderer
-        SDL_RenderFillRect(renderer, &cell);
 
-        // Demande au renderer de se rafraichir
+        // Initialisation du rectangle a la bonne position
+        if (tab1[row][col] == 1)
+        {
+          cell.x = col * column_width;
+          cell.y = row * row_height;
+          cell.w = column_width;
+          cell.h = row_height;
+          // Dessin du rectangle sur le renderer
+          SDL_RenderFillRect(renderer, &cell);
+
+          // Demande au renderer de se rafraichir
+        }
+
+        // Attente de 500ms
+        SDL_Delay(1);
       }
-
-      // Attente de 500ms
-      SDL_Delay(1);
     }
+    SDL_RenderPresent(renderer);
+    nouvelle_vie(tab1,tab2,taille);
+    t = tab1 ;
+    tab1 =tab2;
+    tab2 = t ;
   }
-  SDL_RenderPresent(renderer);
 
   SDL_Delay(2000); // Pause de 2 secondes, pour admirer notre œuvre autant que l'on veut
 
