@@ -5,29 +5,29 @@
 
 int main()
 { // Le nombre de colonnes  et de lignes du jeu
-    unsigned int taille;
     unsigned int n_point_vivre, num_tour;
+    tab tab;
 
     // Saisie du nombre de colonnes et de lignes du jeu
     printf("Nombre de colonnes: ");
-    scanf("%d", &taille);
+    scanf("%d", &tab.taille);
 
     // declarer deux matrices de taille (taille*taille) dans lesquelles on peux stocker char (8bits) parce qu'on va juste stocker 0 ou 1
-    char **tab1 = malloc(sizeof(*tab1) * taille);
-    char **tab2 = malloc(sizeof(*tab2) * taille);
-    for (int i = 0; i < taille; i++)
+    tab.A = malloc(sizeof(*tab.A) * tab.taille);
+    tab.B = malloc(sizeof(*tab.B) * tab.taille);
+    for (int i = 0; i < tab.taille; i++)
     {
-        tab2[i] = malloc(sizeof(char) * taille);
-        tab1[i] = malloc(sizeof(char) * taille);
+        tab.A[i] = malloc(sizeof(char) * tab.taille);
+        tab.B[i] = malloc(sizeof(char) * tab.taille);
     }
 
     // initialiser toute les matrice a 0 :
-    for (int i = 0; i < taille; i++)
+    for (int i = 0; i < tab.taille; i++)
     {
-        for (int j = 0; j < taille; j++)
+        for (int j = 0; j < tab.taille; j++)
         {
-            tab1[i][j] = 0;
-            tab2[i][j] = 0;
+            tab.A[i][j] = 0;
+            tab.A[i][j] = 0;
         }
     }
 
@@ -40,19 +40,19 @@ int main()
         unsigned int i, j;
         printf("Saisir la position des cases occupées au début du jeu:i,j : ");
         scanf("%d,%d", &i, &j);
-        while ((i >= taille || j >= taille))
+        while ((i >= tab.taille || j >= tab.taille))
         {
             printf("Vous avez choisi une position qui n'est pas dans la matrice, Saisissez une autre position:i,j:  ");
             scanf("%d,%d", &i, &j);
         }
-        tab1[i][j] = 1;
+        tab.A[i][j] = 1;
     }
 
     // demande le nombre de tour a l'utilisateur
     printf("Nombre de tour: ");
     scanf("%d", &num_tour);
 
-    afichage_sd2(taille, tab1, tab2, num_tour);
+    afichage_sd2(tab, num_tour);
 
     return 0;
 }

@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include "header.h"
 
-int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_tour)
+int afichage_sd2(tab tab, unsigned int num_tour)
 {
   
   
@@ -17,10 +17,10 @@ int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_
   unsigned int row_height = 0;
 
   // Calcul des largeur de colonnes et hauteur de lignes en pixel
-  column_width = frame_width / taille;
-  row_height = frame_height / taille;
+  column_width = frame_width / tab.taille;
+  row_height = frame_height / tab.taille;
 
-  printf("Taille de la grille                     : %d x %d\n", taille, taille);
+  printf("Taille de la grille                     : %d x %d\n", tab.taille, tab.taille);
   printf("Taille d'une cellule (largeur x hauteur): %dpx x %dpx\n", column_width, row_height);
 
   printf("\nLancement de l'interface graphique\n");
@@ -73,13 +73,13 @@ int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_
   SDL_RenderClear(renderer);
   // Choix de la couleur utilisee pour le tracage
   SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // (RGB 255, 0, 255)
-    for (unsigned int col = 0; col < taille; col++)
+    for (unsigned int col = 0; col < tab.taille; col++)
     {
-      for (unsigned int row = 0; row < taille; row++)
+      for (unsigned int row = 0; row < tab.taille; row++)
       {
 
         // Initialisation du rectangle a la bonne position
-        if (tab1[row][col] == 1)
+        if (tab.A[row][col] == 1)
         {
           cell.x = col * column_width;
           cell.y = row * row_height;
@@ -96,14 +96,14 @@ int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_
 
       }
       // Attente de 500ms
-      SDL_Delay(500/taille);
+      SDL_Delay(500/tab.taille);
     
     }
     SDL_RenderPresent(renderer);
-    nouvelle_generation(tab1,tab2,taille);
-    t = tab1 ;
-    tab1 =tab2;
-    tab2 = t ;
+    nouvelle_generation(tab);
+    t = tab.A ;
+    tab.A =tab.B;
+    tab.B = t ;
   }
 
   SDL_Delay(2000); // Pause de 2 secondes, pour admirer notre œuvre autant que l'on veut
