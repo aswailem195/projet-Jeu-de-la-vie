@@ -1,4 +1,4 @@
-program:affichage.o tester.o jeu_de_vie.o
+program:affichage.o update.o jeu_de_vie.o voisines.o
 	gcc $^ -g -o  $@ $(shell sdl2-config --cflags --libs)
 
 

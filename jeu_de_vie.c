@@ -4,15 +4,15 @@
 #include "header.h"
 
 int main()
-{   // Le nombre de colonnes (columns) et de lignes (rows) du jeu
+{ // Le nombre de colonnes  et de lignes du jeu
     unsigned int taille;
-    unsigned int n_point_vivre ;;
-
+    unsigned int n_point_vivre, num_tour;
 
     // Saisie du nombre de colonnes et de lignes du jeu
     printf("Nombre de colonnes: ");
     scanf("%d", &taille);
 
+    // declarer deux matrices de taille (taille*taille) dans lesquelles on peux stocker char (8bits) parce qu'on va juste stocker 0 ou 1
     char **tab1 = malloc(sizeof(*tab1) * taille);
     char **tab2 = malloc(sizeof(*tab2) * taille);
     for (int i = 0; i < taille; i++)
@@ -32,6 +32,7 @@ int main()
     }
 
     // cases occupées au début du jeu
+    // chaque case sera  sous la forme i,j
     printf("le nombre initial de cases occupées: ");
     scanf("%d", &n_point_vivre);
     for (int k = 0; k < n_point_vivre; k++)
@@ -47,10 +48,11 @@ int main()
         tab1[i][j] = 1;
     }
 
-    
-    nouvelle_vie(tab1,tab2,taille);
-    afichage_sd2(taille, tab1);
-    afichage_sd2(taille, tab2);
+    // demande le nombre de tour a l'utilisateur
+    printf("Nombre de tour: ");
+    scanf("%d", &num_tour);
+
+    afichage_sd2(taille, tab1, tab2, num_tour);
 
     return 0;
 }

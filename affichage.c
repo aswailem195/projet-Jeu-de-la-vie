@@ -3,6 +3,9 @@
 
 int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_tour)
 {
+  
+  
+
   // Les dimensions de la fenetre (zone d'affichage) en pixels
   unsigned int frame_width = 800;  // Largeur
   unsigned int frame_height = 800; // Hauteur
@@ -54,12 +57,6 @@ int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_
     return EXIT_FAILURE;
   }
 
-  // Initialisation du contenu de la fenetre en demandant au renderer de s'effacer avec la couleur noire
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-  SDL_RenderClear(renderer);
-
-  // Choix de la couleur utilisee pour le tracage
-  SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // (RGB 255, 0, 255)
 
   // La structure qui permet de representer un rectangle
   // Cette structure contient les champs suivants:
@@ -70,10 +67,11 @@ int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_
   SDL_Rect cell;
   char **t ;
   for (int i = 0; i < num_tour; i++)
-
   {
+  // Initialisation du contenu de la fenetre en demandant au renderer de s'effacer avec la couleur noire
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
+  // Choix de la couleur utilisee pour le tracage
   SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // (RGB 255, 0, 255)
     for (unsigned int col = 0; col < taille; col++)
     {
@@ -93,12 +91,16 @@ int afichage_sd2(unsigned int taille, char **tab1,char **tab2, unsigned int num_
           // Demande au renderer de se rafraichir
         }
 
-        // Attente de 500ms
-        SDL_Delay(1);
+        
+
+
       }
+      // Attente de 500ms
+      SDL_Delay(500/taille);
+    
     }
     SDL_RenderPresent(renderer);
-    nouvelle_vie(tab1,tab2,taille);
+    nouvelle_generation(tab1,tab2,taille);
     t = tab1 ;
     tab1 =tab2;
     tab2 = t ;
